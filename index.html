@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历 - 朱一涵</title>
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入AOS动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- 引入Swiper轮播库 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- 轮播和模态框关键样式 -->
+    <style>
+        /* 轮播容器强制样式 */
+        .swiper-container,
+        .news-swiper,
+        .research-swiper {
+            width: 100% !important;
+            overflow: visible !important;
+
+            position: relative !important;
+        }
+        
+        /* 轮播项强制样式 */
+        .swiper-slide {
+            /* width: 33.33% !important; */ /* Commented out to allow Swiper to control width */
+            height: auto !important;
+            /* margin-right: 20px !important; */ /* Commented out to allow Swiper to control spacing */
+        }
+        
+        /* 轮播导航按钮强制样式 */
+        .swiper-button-next,
+        .swiper-button-prev,
+        .news-button-next,
+        .news-button-prev,
+        .research-button-next,
+        .research-button-prev {
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 9999 !important;
+            width: 48px !important;
+            height: 48px !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            border-radius: 50% !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+        }
+        
+        /* 模态框强制样式 */
+        .news-modal,
+        .research-modal {
+            display: none;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: rgba(0, 0, 0, 0.7) !important;
+            z-index: 10000 !important;
+            overflow-y: auto !important;
+            padding: 20px !important;
+        }
+        
+        .news-modal-content,
+        .research-modal-content {
+            position: relative !important;
+            background-color: #fff !important;
+            margin: 50px auto !important;
+            padding: 30px !important;
+            width: 90% !important;
+            max-width: 800px !important;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+            z-index: 10001 !important;
+        }
+        
+        .news-modal-close,
+        .research-modal-close {
+            position: absolute !important;
+            top: 15px !important;
+            right: 15px !important;
+            width: 30px !important;
+            height: 30px !important;
+            background: #f5f5f5 !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            z-index: 10002 !important;
+            font-size: 24px !important;
+            color: #333 !important;
+        }
+        
+        /* 标签页强制样式 */
+        .tab-buttons {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-bottom: 20px !important;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px !important;
+            margin-right: 10px !important;
+            margin-bottom: 10px !important;
+            background-color: #f8f8f8 !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .tab-btn.active {
+            background-color: #0052cc !important;
+            color: white !important;
+            border-color: #0052cc !important;
+        }
+        
+        .tab-content {
+            position: relative !important;
+        }
+        
+        .tab-pane {
+            display: none !important;
+        }
+        
+        .tab-pane.active {
+            display: block !important;
+        }
+        
+        /* 社会实践标签页特定样式 */
+        #practice .tab-pane {
+            display: none !important;
+        }
+        
+        #practice .tab-pane.active {
+            display: block !important;
+        }
+        
+        /* 实践调研部分特定样式 */
+        #research.tab-pane {
+            display: none !important;
+        }
+        
+        #research.tab-pane.active {
+            display: block !important;
+            width: 100% !important;
+        }
+        
+        .research-section {
+            margin-bottom: 50px !important;
+            padding: 20px !important;
+            background-color: #fff !important;
+            border-radius: 8px !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+            width: 100% !important;
+            display: block !important;
+            position: relative !important;
+        }
+        
+        .research-section-title {
+            font-size: 1.5rem !important;
+            margin-bottom: 20px !important;
+            color: #0052cc !important;
+            font-weight: bold !important;
+            display: block !important;
+            width: 100% !important;
+        }
+        
+        .research-content-wrapper {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 20px !important;
+            width: 100% !important;
+        }
+        
+        .research-details {
+            flex: 1 !important;
+            min-width: 300px !important;
+        }
+        
+        .research-gallery {
+            flex: 1 !important;
+            min-width: 300px !important;
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-gap: 15px !important;
+        }
+        
+        .gallery-item img {
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        }
+        
+        .research-time {
+            font-size: 0.9rem !important;
+            color: #666 !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .research-description {
+            margin-bottom: 20px !important;
+            line-height: 1.6 !important;
+        }
+        
+        .research-highlights h4 {
+            margin-bottom: 15px !important;
+            font-weight: 600 !important;
+        }
+        
+        .highlight-item {
+            display: flex !important;
+            align-items: flex-start !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .highlight-item i {
+            color: #0052cc !important;
+            margin-right: 10px !important;
+            margin-top: 3px !important;
+        }
+
+        /* 近期动态模态框图片样式 */
+        .news-modal-image-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            min-height: 200px; /* 兜底，防止容器高度为0 */
+        }
+
+        .news-modal-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #f0f0f0;
+        }
+
+        /* 近期动态轮播卡片图片样式 */
+        .news-card .news-image {
+            width: 100% !important;
+            height: 200px !important; /* 固定高度 */
+            /* 移除aspect-ratio属性，防止与固定高度冲突 */
+            background-color: #f0f0f0 !important; 
+            display: block !important;            
+            overflow: hidden !important;         
+            position: relative !important; /* 添加相对定位 */
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .news-card .news-image img {
+            position: absolute !important; /* 使用绝对定位 */
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important; /* 宽度100% */
+            height: 100% !important; /* 高度100% */
+            object-fit: cover !important; /* 修改为cover，确保填满容器 */
+            object-position: center !important; /* 确保图片居中显示 */
+        }
+        
+        /* 确保轮播项的统一 */
+        .swiper-slide.news-slide {
+            height: auto !important;
+        }
+        
+        .news-card {
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+        
+        .news-card .news-content {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 15px !important;
+        }
+
+        /* 模态框内的图片画廊样式 */
+        .news-gallery-container {
+            margin: 20px 0;
+            width: 100%;
+        }
+        .news-main-image {
+            width: 100% !important;
+            height: 350px !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            margin: 0 auto 15px !important;
+            display: block !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        }
+        .news-thumbnails {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            justify-content: center !important;
+            margin-bottom: 20px !important;
+        }
+        .news-thumbnail {
+            width: 80px !important;
+            height: 60px !important;
+            object-fit: cover !important;
+            cursor: pointer !important;
+            border-radius: 3px !important;
+            border: 2px solid transparent !important;
+            transition: all 0.2s ease !important;
+        }
+        .news-thumbnail.active {
+            border-color: #0052cc !important;
+            box-shadow: 0 0 5px rgba(0,82,204,0.5) !important;
+        }
+        .news-thumbnail:hover {
+            transform: scale(1.05) !important;
+        }
+        
+        /* 以下为新的导师推荐卡片样式 */
+        .recommendation-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .recommendation-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 380px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .recommender-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #0052cc;
+        }
+        
+        .recommender-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .recommender-info {
+            margin-left: 15px;
+        }
+        
+        .recommender-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .recommendation-quote {
+            font-style: italic;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid #0052cc;
+        }
+        
+        /* 确保轮播导航按钮始终可见 */
+        .recommendation-button-next, 
+        .recommendation-button-prev {
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 10 !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        /* 科研项目卡片详情按钮统一样式 */
+        .compact-research-button {
+            display: inline-block !important;
+            background-color: #0052cc !important;
+            color: #ffffff !important;
+            padding: 6px 12px !important;
+            border-radius: 4px !important;
+            margin-top: 8px !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            font-size: 0.8rem !important;
+            text-align: center !important;
+            text-decoration: none !important;
+            transition: background-color 0.3s ease !important;
+        }
+        .compact-research-button:hover {
+            background-color: #003d99 !important;
+        }
+        .compact-research-button i {
+            margin-left: 4px !important;
+            font-size: 0.75rem !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">个人简历</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#news">近期动态</a></li>
+                <li><a href="#research">学术科研</a></li>
+                <li><a href="#competition">学科竞赛</a></li>
+                <li><a href="#practice">社会实践</a></li>
+                <li><a href="#help">学业帮扶</a></li>
+                <li><a href="#skills">个人能力</a></li>
+            </ul>
+            <div class="download-btn">
+                <a href="assets/files/resume.pdf" target="_blank"><i class="fas fa-download"></i> 下载简历</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页部分 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <div class="profile-image">
+                    <img src="assets/images/profile.jpg" alt="个人照片" style="object-fit: cover; width: 100%; height: 100%;">
+                </div>
+                <div class="profile-info">
+                    <h1>朱一涵</h1>
+                    <p class="subtitle">华南农业大学（双一流）</p>
+                    <div class="basic-info-card">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">政治面貌</div>
+                                <div class="info-value">中共党员</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">籍贯</div>
+                                <div class="info-value">江西九江</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">出生日期</div>
+                                <div class="info-value">2004-02-02</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">联系方式</div>
+                                <div class="info-value">13660608976</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">邮箱</div>
+                                <div class="info-value">13660608976@163.com</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">毕业年份</div>
+                                <div class="info-value">2026-06</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="bio">华南农业大学汉语言文学专业在读本科生，专注于农村政策研究与乡村振兴实践。多次参与国家级科研项目和竞赛，擅长文献分析和田野调查，致力于探索政策环境与农村发展的互动机制。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 近期动态轮播 -->
+    <section id="news" class="news-carousel">
+        <div class="container">
+            <h2 class="section-title">近期动态</h2>
+            <div class="swiper news-swiper">
+                <div class="swiper-wrapper">
+                    <!-- 轮播项1 -->
+                    <div class="swiper-slide news-slide">
+                        <div class="news-card">
+                            <div class="news-image">
+                                <img src="assets/images/news1.jpg" alt="全国公共管理案例大赛">
+                            </div>
+                            <div class="news-content">
+                                <div class="news-date">
+                                    <span class="date">2025.05.18</span>
+                                </div>
+                                <h3 class="news-title">全国公共管理案例大赛</h3>
+                                <p class="news-excerpt">赴京参加第九届"求是杯"赛事，项目团队获全国第二，个人获年度唯一"最具价值队员奖"，并作为参赛学生代表发言。</p>
+                                <a href="javascript:void(0);" class="news-read-more" data-id="1" onclick="showNewsModalById(1)" style="display:inline-block !important; background-color:#0052cc !important; color:#ffffff !important; padding:8px 16px !important; border-radius:4px !important; margin-top:10px !important; cursor:pointer !important; z-index:9999 !important;">阅读详情 <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 轮播项2 -->
+                    <div class="swiper-slide news-slide">
+                        <div class="news-card">
+                            <div class="news-image">
+                                <img src="assets/images/news2.jpg" alt="论文发表">
+                            </div>
+                            <div class="news-content">
+                                <div class="news-date">
+                                    <span class="date">2025.05.14</span>
+                                </div>
+                                <h3 class="news-title">RCCSE准核心、AMI期刊论文</h3>
+                                <p class="news-excerpt">主笔实证论文《计划行为理论下的土地流转意愿研究——来自广东的经验证据》在RCCSE准核心、AMI期刊《南方农村》上发表。</p>
+                                <a href="javascript:void(0);" class="news-read-more" data-id="2" onclick="showNewsModalById(2)" style="display:inline-block !important; background-color:#0052cc !important; color:#ffffff !important; padding:8px 16px !important; border-radius:4px !important; margin-top:10px !important; cursor:pointer !important; z-index:9999 !important;">阅读详情 <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 轮播项3 -->
+                    <div class="swiper-slide news-slide">
+                        <div class="news-card">
+                            <div class="news-image">
+                                <img src="assets/images/news3.jpg" alt="实地调研">
+                            </div>
+                            <div class="news-content">
+                                <div class="news-date">
+                                    <span class="date">2024.11.09</span>
+                                </div>
+                                <h3 class="news-title">中国人民大学学术论坛</h3>
+                                <p class="news-excerpt">第一作者身份主笔案例论文入选中国人民大学三农论坛，在中共义务市委党校作论文汇报，获评为二等奖。</p>
+                                <a href="javascript:void(0);" class="news-read-more" data-id="3" onclick="showNewsModalById(3)" style="display:inline-block !important; background-color:#0052cc !important; color:#ffffff !important; padding:8px 16px !important; border-radius:4px !important; margin-top:10px !important; cursor:pointer !important; z-index:9999 !important;">阅读详情 <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 新增轮播项4 -->
+                    <div class="swiper-slide news-slide">
+                        <div class="news-card">
+                            <div class="news-image">
+                                <img src="assets/images/news4.jpg" alt="学术会议参与">
+                            </div>
+                            <div class="news-content">
+                                <div class="news-date">
+                                    <span class="date">2024.11.16</span>
+                                </div>
+                                <h3 class="news-title">第五届南京农业大学卜凯本科生论坛</h3>
+                                <p class="news-excerpt">主笔论文入选第五届南京农业大学经济管理学院卜凯本科生论坛，并作论文汇报，最终收录为三等奖会议论文。                                    
+
+                                </p>
+                                <a href="javascript:void(0);" class="news-read-more" data-id="4" onclick="showNewsModalById(4)" style="display:inline-block !important; background-color:#0052cc !important; color:#ffffff !important; padding:8px 16px !important; border-radius:4px !important; margin-top:10px !important; cursor:pointer !important; z-index:9999 !important;">阅读详情 <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 轮播控制 -->
+                <div class="swiper-pagination news-pagination"></div>
+                <div class="swiper-button-next news-button-next"></div>
+                <div class="swiper-button-prev news-button-prev"></div>
+            </div>
+        </div>
+        
+        <!-- 动态详情模态框 -->
+        <div class="news-modal" id="newsModal">
+            <div class="news-modal-content">
+                <span class="news-modal-close">&times;</span>
+                <div class="news-modal-body">
+                    <!-- 动态详情内容将通过JS动态加载 -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 个人陈述视频 -->
+    <section class="video-section" data-aos="fade-up">
+        <div class="container">
+            <h2>个人陈述</h2>
+            <div class="video-container">
+                <video controls poster="assets/images/video-poster.jpg">
+                    <source src="assets/videos/personal-statement.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 导师推荐语 -->
+    <section class="recommendations" data-aos="fade-up">
+        <div class="container">
+            <h2>导师推荐</h2>
+            <div class="recommendation-cards-container">
+                <!-- 第一位导师推荐 -->
+                <div class="recommendation-card">
+                    <div class="recommender-header">
+                        <img src="assets/images/recommender1.jpg" alt="文晓巍照片" class="recommender-avatar">
+                        <div class="recommender-info">
+                            <div class="recommender-name-row">
+                                <span class="recommender-name">文晓巍</span>
+                                <span class="recommender-title">教授</span>
+                            </div>
+                            <div class="recommender-org">广东农村政策研究中心</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-divider"></div>
+                    <div class="recommendation-quote">
+                        一涵的优点在于勤勉好学、悟性较高、学习能力和表达能力出色，在科研和创新等方面具有很大的潜力。
+                    </div>
+                </div>
+                
+                <!-- 第二位导师推荐 -->
+                <div class="recommendation-card">
+                    <div class="recommender-header">
+                        <img src="assets/images/recommender2.jpg" alt="推荐人照片" class="recommender-avatar">
+                        <div class="recommender-info">
+                            <div class="recommender-name-row">
+                                <span class="recommender-name">何泽棠</span>
+                                <span class="recommender-title">副教授</span>
+                            </div>
+                            <div class="recommender-org">SCAU人文与法学学院</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-divider"></div>
+                    <div class="recommendation-quote">
+                        该生思想积极向上，谦逊好学，对待师友谦逊有礼，较早地开始了自己的科研探索，综合素质较强，各方面成绩突出。
+                    </div>
+                </div>
+                
+                <!-- 第三位导师推荐 -->
+                <div class="recommendation-card">
+                    <div class="recommender-header">
+                        <img src="assets/images/recommender3.jpg" alt="陈明导师照片" class="recommender-avatar">
+                        <div class="recommender-info">
+                            <div class="recommender-name-row">
+                                <span class="recommender-name">曾准</span>
+                                <span class="recommender-title">副教授</span>
+                            </div>
+                            <div class="recommender-org">广东农创学院院长</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-divider"></div>
+                    <div class="recommendation-quote">
+                        朱一涵同学理论基础扎实，实践能力突出，多次在跨学科竞赛中获奖，对其未来的发展寄予厚望！
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学术科研部分 -->
+    <section id="research" class="research">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">学术科研</h2>
+            
+            <!-- 科研项目 -->
+            <div class="research-projects" data-aos="fade-up">
+                <!-- 替换轮播为网格布局 -->
+                <div class="research-grid">
+                    <!-- 项目1 -->
+                    <div class="research-card-preview" data-id="research1">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper1-cover.jpg" alt="论文封面">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type journal">期刊论文</span>
+                            <h3 class="research-preview-title">计划行为理论下的土地流转意愿研究</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2024.05 - 2025.03</span>
+                                <span><i class="fas fa-user-tie"></i> 第二作者（导师一作）</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research1" onclick="showResearchModalById('research1')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 新增期刊论文 -->
+                    <div class="research-card-preview" data-id="research6">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper2-cover.jpg" alt="论文封面">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type journal">期刊论文</span>
+                            <h3 class="research-preview-title">农地流转与农机现代化协同发展的内在机理研究</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2025.02 - 2025.05</span>
+                                <span><i class="fas fa-user-tie"></i> 第一作者</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research6" onclick="showResearchModalById('research6')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目2 -->
+                    <div class="research-card-preview" data-id="research2">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper3-cover.jpg" alt=""炮弹香芋"何以打通农技推广的"最后一公里"">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type conference">会议论文</span>
+                            <h3 class="research-preview-title">"炮弹香芋"何以打通农技推广的"最后一公里"</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2023.09 - 2024.10</span>
+                                <span><i class="fas fa-user-tie"></i> 第一作者</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research2" onclick="showResearchModalById('research2')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 基层兽医队伍建设论文 -->
+                    <div class="research-card-preview" data-id="research11">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper11-cover.jpg" alt="会议论文封面">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type conference">会议论文</span>
+                            <h3 class="research-preview-title">基层兽医队伍建设如何影响养殖业减抗治理成效？</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2025.03 - 2025.05</span>
+                                <span><i class="fas fa-user-tie"></i> 第三作者</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research11" onclick="showResearchModalById('research11')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目3 -->
+                    <div class="research-card-preview" data-id="research3">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper4-cover.jpg" alt="数字农业发展与农户参与意愿研究">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">新质生产力与乡村文化振兴：数智技术何以可能？</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2024.06-至今</span>
+                                <span><i class="fas fa-user-tie"></i> 负责人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research3" onclick="showResearchModalById('research3')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 政策环境课题 -->
+                    <div class="research-card-preview" data-id="research7">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper5-cover.jpg" alt="粤北山区农产品电商物流体系优化研究">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">政策环境、市场特质、家庭禀赋与土地流转意愿</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2024.01-至今</span>
+                                <span><i class="fas fa-user-tie"></i> 主要负责人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research7" onclick="showResearchModalById('research7')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 发挥广州引擎作用课题 -->
+                    <div class="research-card-preview" data-id="research8">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper6-cover.jpg" alt="乡村旅游与农村文化产业融合发展模式研究">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">发挥广州引擎作用，推动人文湾区构建</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2024.05-2024.12</span>
+                                <span><i class="fas fa-user-tie"></i> 学生第一参与人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research8" onclick="showResearchModalById('research8')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目4 -->
+                    <div class="research-card-preview" data-id="research4">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper7-cover.jpg" alt="电白区农业产业"十四五"规划项目">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">电白区农业产业"十四五"规划项目</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2022.09-2022.10</span>
+                                <span><i class="fas fa-user-tie"></i> 学生参与人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research4" onclick="showResearchModalById('research4')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 肇庆封开课题 -->
+                    <div class="research-card-preview" data-id="research9">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper8-cover.jpg" alt="肇庆封开北部三镇规划">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">肇庆封开北部三镇规划</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2022.09-2022.10</span>
+                                <span><i class="fas fa-user-tie"></i> 学生参与人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research9" onclick="showResearchModalById('research9')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目5 -->
+                    <div class="research-card-preview" data-id="research5">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper9-cover.jpg" alt="广晟生态城项目规划">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">广晟生态城项目规划</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2022.09-2022.10</span>
+                                <span><i class="fas fa-user-tie"></i> 学生参与人</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research5" onclick="showResearchModalById('research5')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 广东粮食生产项目 -->
+                    <div class="research-card-preview" data-id="research10">
+                        <div class="research-preview-cover">
+                            <img src="assets/images/paper10-cover.jpg" alt="广东粮食生产项目：粤财农（2022）92号">
+                        </div>
+                        <div class="research-preview-content">
+                            <span class="research-type project">科研课题</span>
+                            <h3 class="research-preview-title">广东粮食生产项目：粤财农（2022）92号</h3>
+                            <div class="research-preview-meta">
+                                <span><i class="fas fa-calendar-alt"></i> 2022.06-2022.10</span>
+                                <span><i class="fas fa-user-tie"></i> 调研员</span>
+                            </div>
+                            <a href="javascript:void(0);" class="research-details-btn compact-research-button" data-id="research10" onclick="showResearchModalById('research10')">查看详情 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 研究详情模态框 -->
+        <div id="researchModal" class="research-modal">
+            <div class="research-modal-content">
+                <span class="research-modal-close">&times;</span>
+                <div class="research-modal-body">
+                    <!-- 动态内容将通过JavaScript填充 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学科竞赛部分 -->
+    <section id="competition" class="competition">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">学科竞赛</h2>
+            
+            <div class="competition-tabs" data-aos="fade-up">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="professional">专业竞赛</button>
+                    <button class="tab-btn" data-tab="innovation">双创竞赛</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="professional">
+                        <div class="competition-cards">
+                            <!-- 竞赛卡片1 -->
+                            <div class="competition-card" data-id="pro1">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition1.jpg" alt="中国人民大学求是杯">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2025.05</div>
+                                    <h3 class="competition-title">中国人民大学"求是杯"全国公管案例大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">二等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片2 -->
+                            <div class="competition-card" data-id="pro2">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition2.jpg" alt="中山大学政务关注">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.05</div>
+                                    <h3 class="competition-title">中山大学全国"政务关注"社会调研大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">二等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片3 -->
+                            <div class="competition-card" data-id="pro3">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition3.jpg" alt="中国政法大学立格杯">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2024.09</div>
+                                    <h3 class="competition-title">中国政法大学全国"立格杯"案例分析大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">一等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片4 -->
+                            <div class="competition-card" data-id="pro4">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition4.jpg" alt="浪潮杯新文科">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2024.12</div>
+                                    <h3 class="competition-title">全国"浪潮杯"新文科实践创新大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">银奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片5 -->
+                            <div class="competition-card" data-id="pro5">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition5.jpg" alt="挑战杯">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2025.03</div>
+                                    <h3 class="competition-title">挑战杯大学生课外学术科技作品竞赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">市校级</span>
+                                        <span class="competition-award">一等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片6 -->
+                            <div class="competition-card" data-id="pro6">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition6.jpg" alt="全国语言文字能力大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2021.12</div>
+                                    <h3 class="competition-title">全国语言文字能力大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">一等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片7 -->
+                            <div class="competition-card" data-id="pro7">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition7.jpg" alt="SCAU学术沙龙">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.03</div>
+                                    <h3 class="competition-title">第十三届SCAU学术沙龙圆桌会议</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">市校级</span>
+                                        <span class="competition-award">二等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 竞赛卡片8 -->
+                            <div class="competition-card" data-id="pro8">
+                                <div class="competition-cover">
+                                    <img src="assets/images/competition8.jpg" alt="新时代十年调研">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.03</div>
+                                    <h3 class="competition-title">新时代十年的伟大成就调研报告</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">市校级</span>
+                                        <span class="competition-award">二等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="innovation">
+                        <div class="competition-cards">
+                            <!-- 双创竞赛卡片1 -->
+                            <div class="competition-card" data-id="inn1">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation1.jpg" alt="中国国际大学生创新大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2024.10</div>
+                                    <h3 class="competition-title">中国国际大学生创新大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">金奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片2 -->
+                            <div class="competition-card" data-id="inn2">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation2.jpg" alt="第十四届'挑战杯'大学生创业计划竞赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2024.11</div>
+                                    <h3 class="competition-title">第十四届"挑战杯"大学生创业计划竞赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">金奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片3 -->
+                            <div class="competition-card" data-id="inn3">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation3.jpg" alt="全国大学生电商'创新、创意及创业'挑战赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2024.08</div>
+                                    <h3 class="competition-title">全国大学生电商"创新、创意及创业"挑战赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">二等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片4 -->
+                            <div class="competition-card" data-id="inn4">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation4.jpg" alt="2023年中美青年创客大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.09</div>
+                                    <h3 class="competition-title">2023年中美青年创客大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国际级</span>
+                                        <span class="competition-award">优秀奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片5 -->
+                            <div class="competition-card" data-id="inn5">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation5.jpg" alt="第十届'创青春'中国青年创新创业大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.09</div>
+                                    <h3 class="competition-title">第十届"创青春"中国青年创新创业大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">优秀奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片6 -->
+                            <div class="competition-card" data-id="inn6">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation6.jpg" alt="第十四届中国大学生服务外包创新创业大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.07</div>
+                                    <h3 class="competition-title">第十四届中国大学生服务外包创新创业大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">国家级</span>
+                                        <span class="competition-award">三等奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片7 -->
+                            <div class="competition-card" data-id="inn7">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation7.jpg" alt="'创青春'粤港澳大湾区青年创业大赛">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.12</div>
+                                    <h3 class="competition-title">"创青春"粤港澳大湾区青年创业大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">省部级</span>
+                                        <span class="competition-award">优秀奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 双创竞赛卡片8 -->
+                            <div class="competition-card" data-id="inn8">
+                                <div class="competition-cover">
+                                    <img src="assets/images/innovation8.jpg" alt="赢在广州大学生创新创业大赛优胜奖">
+                                </div>
+                                <div class="competition-content">
+                                    <div class="competition-date">2023.12</div>
+                                    <h3 class="competition-title">赢在广州大学生创新创业大赛</h3>
+                                    <div class="competition-info">
+                                        <span class="competition-level">省部级</span>
+                                        <span class="competition-award">优胜奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社会实践部分 -->
+    <section id="practice" class="practice">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">社会实践</h2>
+            
+            <div class="practice-tabs" data-aos="fade-up">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="internship" onclick="showTab('internship', this)">社会实习</button>
+                    <button class="tab-btn" data-tab="research" onclick="showTab('research', this)">实践调研</button>
+                    <button class="tab-btn" data-tab="student-work" onclick="showTab('student-work', this)">学生工作</button>
+                    <button class="tab-btn" data-tab="volunteer" onclick="showTab('volunteer', this)">志愿服务</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="internship">
+                        <div class="practice-cards">
+                            <!-- 广东省农业农村厅农村创业学院实习 -->
+                            <div class="practice-card">
+                                <div class="practice-image">
+                                    <img src="assets/images/practice/startup.jpg" alt="农村创业学院实习">
+                                </div>
+                                <div class="practice-content">
+                                    <h4>广东省农业农村厅农村创业学院</h4>
+                                    <div class="practice-meta">
+                                        <span class="practice-position">实习生</span>
+                                        <span class="practice-date">2023.07 - 2024.03</span>
+                                    </div>
+                                    <div class="practice-description">
+                                        参与农村创业项目孵化，协助组织创培活动，负责项目对接和资源整合。
+                                    </div>
+                                    <div class="practice-skills">
+                                        <span>项目孵化</span>
+                                        <span>资源整合</span>
+                                        <span>活动组织</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 广东省乡村建设研究院实习 -->
+                            <div class="practice-card">
+                                <div class="practice-image">
+                                    <img src="assets/images/practice/rural.jpg" alt="乡村建设研究院实习">
+                                </div>
+                                <div class="practice-content">
+                                    <h4>广东省乡村建设研究院</h4>
+                                    <div class="practice-meta">
+                                        <span class="practice-position">研究助理</span>
+                                        <span class="practice-date">2022.04 - 2025.5</span>
+                                    </div>
+                                    <div class="practice-description">
+                                        参与乡村建设规划研究，协助开展实地调研，整理分析调研数据。
+                                    </div>
+                                    <div class="practice-skills">
+                                        <span>实地调研</span>
+                                        <span>数据分析</span>
+                                        <span>规划研究</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="research">
+                        <!-- 社会调研部分 -->
+                        <div class="research-section">
+                            <h3 class="research-section-title">粤西稻作村调研</h3>
+                            <div class="research-content-wrapper">
+                                <div class="research-details">
+                                    <div class="research-time">
+                                        <i class="fas fa-calendar-alt"></i> 2022年5月 - 2022年6月
+                                    </div>
+                                    <div class="research-description">
+                                        深入广东省江门、茂名等地36个稻作村开展实地调研，了解乡村发展现状、产业结构和振兴措施实施效果。调研通过问卷调查、深度访谈和田野观察等方式，共收集有效样本1000余份。
+                                    </div>
+                                    <div class="research-highlights">
+                                        <h4>调研发现</h4>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>广东农村土地流转的发生率低</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>土地适度规模经营能够有效推动产业发展</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>传统稻农对新技术的接受度和应用不足</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="research-gallery">
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/rural-main.jpg" alt="乡村振兴调研主图">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/rural-1.jpg" alt="乡村振兴调研照片1">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/rural-2.jpg" alt="乡村振兴调研照片2">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/rural-3.jpg" alt="乡村振兴调研照片3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 农村教育调研 -->
+                        <div class="research-section">
+                            <h3 class="research-section-title">乡村CEO实践调研</h3>
+                            <div class="research-content-wrapper">
+                                <div class="research-details">
+                                    <div class="research-time">
+                                        <i class="fas fa-calendar-alt"></i> 2023年7月 - 2023年8月
+                                    </div>
+                                    <div class="research-description">
+                                        前往清远连南瑶族自治县拾月拾陆瑶族（非遗）文化创意园、连山石坪村"三地活化"改革试点项目、连山壮族瑶族自治县永和镇蒙峒古村项目进行现场教学。通过实地参访，与当地乡村职业经理人交流互动，进一步了解广东乡村农文旅融合发展的新模式，领略非遗文化助力乡村振兴的独特魅力。
+                                    </div>
+                                    <div class="research-highlights">
+                                        <h4>调研发现</h4>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>非遗文化产业化开发是激活乡村文化资源的有效路径</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>乡村职业经理人在农文旅融合发展中扮演关键桥梁作用</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>"三地活化"模式有效提升了农村土地资源综合利用效率</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="research-gallery">
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education-main.jpg" alt="乡村CEO实践调研主图">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education-1.jpg" alt="乡村CEO实践调研照片1">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education-2.jpg" alt="乡村CEO实践调研照片2">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education-3.jpg" alt="乡村CEO实践调研照片3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 农村产业调研 -->
+                        <div class="research-section">
+                            <h3 class="research-section-title">农村产业调研</h3>
+                            <div class="research-content-wrapper">
+                                <div class="research-details">
+                                    <div class="research-time">
+                                        <i class="fas fa-calendar-alt"></i> 2024年7月-2024年8月
+                                    </div>
+                                    <div class="research-description">
+                                        聚焦考察广东省乐昌市"炮弹香芋"产业的发展历程，通过实地访谈和地方史料，基于扎根理论构建"积木模型"理论框架，揭示了在农技推广过程中各主体之间的互动关系以及科技小院在其中发挥的关键枢纽作用。调研成果获得清华大学农村调查研究奖。
+                                    </div>
+                                    <div class="research-highlights">
+                                        <h4>调研发现</h4>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>科技小院作枢纽有效提升农技推广效能</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>枢纽型社会组织在多元协同中发挥重要作用</div>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <div>科技小院模式的发展仍然面临多元挑战</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="research-gallery">
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education1.jpg" alt="科技小院调研现场">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education2.jpg" alt="乐昌炮弹香芋种植基地">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education3.jpg" alt="农户访谈现场">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="assets/images/research/education4.jpg" alt="调研成果展示">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="student-work">
+                        <!-- 学生工作内容 -->
+                        <div class="practice-cards-grid single-row">
+                            <!-- 学生工作1 -->
+                            <div class="practice-card">
+                                <div class="practice-image">
+                                    <img src="assets/images/student-work/speech.jpg" alt="演讲与口才协会工作照片">
+                                </div>
+                                <div class="practice-content">
+                                    <h4>SCAU演讲与口才协会</h4>
+                                    <div class="practice-meta">
+                                        <span class="practice-position">副会长</span>
+                                        <span class="practice-date">2022.11 - 2023.11</span>
+                                    </div>
+                                    <p class="practice-description">负责协会日常运营管理，组织策划演讲比赛、辩论赛等品牌活动，开展口才培训课程。</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 学生工作2 -->
+                            <div class="practice-card">
+                                <div class="practice-image">
+                                    <img src="assets/images/student-work/student-union.jpg" alt="学生会工作照片">
+                                </div>
+                                <div class="practice-content">
+                                    <h4>SCAU人文与法学学院学生会</h4>
+                                    <div class="practice-meta">
+                                        <span class="practice-position">主席</span>
+                                        <span class="practice-date">2023.06 - 2024.06</span>
+                                    </div>
+                                    <p class="practice-description">统筹学生会整体工作，协调各部门开展学术、文体、志愿服务等活动，推动学院学生工作创新发展。</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 学生工作3 -->
+                            <div class="practice-card">
+                                <div class="practice-image">
+                                    <img src="assets/images/student-work/political.jpg" alt="模拟政协协会工作照片">
+                                </div>
+                                <div class="practice-content">
+                                    <h4>SCAU模拟政协协会</h4>
+                                    <div class="practice-meta">
+                                        <span class="practice-position">团支部书记</span>
+                                        <span class="practice-date">2022.11 - 2023.11</span>
+                                    </div>
+                                    <p class="practice-description">负责协会团支部建设，组织政治理论学习，开展模拟政协提案活动，培养会员参政议政意识。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="volunteer">
+                        <div class="volunteer-certificate">
+                            <div class="certificate-image">
+                                <img src="assets/images/volunteer/volunteer-certificate.jpg" alt="广东省志愿服务时间证书" class="certificate-img-preview" style="pointer-events: none;">
+                            </div>
+                            <div class="certificate-info">
+                                <h4 class="certificate-title">广东省二星志愿者认证</h4>
+                                <div class="certificate-star"><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <div class="certificate-meta-row">
+                                    <span class="certificate-badge">
+                                        <i class="fas fa-clock"></i> 累计服务时间: <strong>398</strong>小时
+                                    </span>
+                                    <span class="certificate-badge">
+                                        <i class="fas fa-calendar-alt"></i> 认证日期: <strong>2025年5月</strong>
+                                    </span>
+                                </div>
+                                <p class="certificate-desc">广东省志愿者联合会官方认证的二星级志愿者，在社区服务、环保宣传、校园活动等多个领域积极参与志愿服务工作。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="volunteer-timeline">
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer1.jpg" alt="核酸检测志愿服务">
+                                </div>
+                                <div class="volunteer-name">核酸检测</div>
+                                <div class="volunteer-hours">24h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer2.jpg" alt="爱心助残志愿服务">
+                                </div>
+                                <div class="volunteer-name">爱心助残</div>
+                                <div class="volunteer-hours">10h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer3.jpg" alt="乡村支教志愿服务">
+                                </div>
+                                <div class="volunteer-name">乡村支教</div>
+                                <div class="volunteer-hours">35h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer4.jpg" alt="社区宣传志愿服务">
+                                </div>
+                                <div class="volunteer-name">社区清洁</div>
+                                <div class="volunteer-hours">4h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer5.jpg" alt="环保行动志愿服务">
+                                </div>
+                                <div class="volunteer-name">心晨电台</div>
+                                <div class="volunteer-hours">14h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer6.jpg" alt="敬老院慰问">
+                                </div>
+                                <div class="volunteer-name">迎新服务</div>
+                                <div class="volunteer-hours">22h</div>
+                            </div>
+                            
+                            <div class="volunteer-item">
+                                <div class="volunteer-image">
+                                    <img src="assets/images/volunteer/volunteer7.jpg" alt="迎新志愿服务">
+                                </div>
+                                <div class="volunteer-name">书信往来</div>
+                                <div class="volunteer-hours">40h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学业帮扶部分 -->
+    <section id="help" class="help">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">学业帮扶</h2>
+            
+            <!-- 新增：学业帮扶数据统计条 -->
+            <div class="help-data-bar">
+                <div class="help-data-item"><span class="help-data-num">4+</span><span class="help-data-label">涉及学院</span></div>
+                <div class="help-data-item"><span class="help-data-num">7+</span><span class="help-data-label">涵盖专业</span></div>
+                <div class="help-data-item"><span class="help-data-num">10+</span><span class="help-data-label">院校来源</span></div>
+                <div class="help-data-item"><span class="help-data-num">&gt;200+</span><span class="help-data-label">沟通交流</span></div>
+                <div class="help-data-item"><span class="help-data-num">70+</span><span class="help-data-label">帮扶人次</span></div>
+            </div>
+            
+            <!-- 新增：合作院校展示条 -->
+            <div class="school-bar">
+                <div class="school-item">
+                    <img src="assets/images/school/sysu.png" alt="中山大学">
+                    <span>中山大学</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/scau.png" alt="华南农大">
+                    <span>华南农大</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/whu.png" alt="武汉大学">
+                    <span>武汉大学</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/nju.png" alt="南京大学">
+                    <span>南京大学</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/scu.png" alt="四川大学">
+                    <span>四川大学</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/cau.png" alt="中国农大">
+                    <span>中国农大</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/scnu.png" alt="华南师大">
+                    <span>华南师大</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/hku.png" alt="香港大学">
+                    <span>香港大学</span>
+                </div>
+                <div class="school-item">
+                    <img src="assets/images/school/njtech.png" alt="南京理工">
+                    <span>南京理工</span>
+                </div>
+            </div>
+            
+            <!-- 新增：帮扶案例卡片 -->
+            <div class="help-cases">
+                <div class="help-cases-grid">
+                    <!-- 案例1 -->
+                    <div class="help-case-card">
+                        <div class="help-case-image">
+                            <img src="assets/images/help/case1.jpg" alt="帮扶案例1">
+                        </div>
+                        <div class="help-case-content">
+                            <h3 class="help-case-name">张同学</h3>
+                            <div class="help-case-school" style="justify-content: flex-start;">
+                                中山大学
+                            </div>
+                            <div class="help-case-meta-row" style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                                <div class="help-case-level">国家级</div>
+                                <div class="help-case-date">2024.05</div>
+                            </div>
+                            <div class="help-case-award" style="justify-content: flex-start;">
+                                中山大学"政务关注"社会调研大赛三等奖
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 案例2 -->
+                    <div class="help-case-card">
+                        <div class="help-case-image">
+                            <img src="assets/images/help/case2.jpg" alt="帮扶案例2">
+                        </div>
+                        <div class="help-case-content">
+                            <h3 class="help-case-name">杨同学</h3>
+                            <div class="help-case-school" style="justify-content: flex-start;">
+                                华南农业大学
+                            </div>
+                            <div class="help-case-meta-row" style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                                <div class="help-case-level">国家级</div>
+                                <div class="help-case-date">2025.05</div>
+                            </div>
+                            <div class="help-case-award" style="justify-content: flex-start;">
+                                全国大学生创新训练计划项目国家级立项
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 案例3 -->
+                    <div class="help-case-card">
+                        <div class="help-case-image">
+                            <img src="assets/images/help/case3.jpg" alt="帮扶案例3">
+                        </div>
+                        <div class="help-case-content">
+                            <h3 class="help-case-name">廖同学</h3>
+                            <div class="help-case-school" style="justify-content: flex-start;">
+                                华南农业大学
+                            </div>
+                            <div class="help-case-meta-row" style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                                <div class="help-case-level">国家级</div>
+                                <div class="help-case-date">2024.08</div>
+                            </div>
+                            <div class="help-case-award" style="justify-content: flex-start;">
+                                全国大学生电子商务"三创"挑战赛二等奖
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 案例4 -->
+                    <div class="help-case-card">
+                        <div class="help-case-image">
+                            <img src="assets/images/help/case4.jpg" alt="帮扶案例4">
+                        </div>
+                        <div class="help-case-content">
+                            <h3 class="help-case-name">庄同学</h3>
+                            <div class="help-case-school" style="justify-content: flex-start;">
+                                福州师范大学
+                            </div>
+                            <div class="help-case-meta-row" style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                                <div class="help-case-level">国家级</div>
+                                <div class="help-case-date">2025.05</div>
+                            </div>
+                            <div class="help-case-award" style="justify-content: flex-start;">
+                               中山大学"政务关注"社会调研大赛一等奖
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人能力部分 -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">个人能力</h2>
+            
+            <div class="skills-circles">
+                <div class="skill-circle-item">
+                    <div class="skill-circle">
+                        <img src="assets/images/skills/1.jpg" alt="学术能力">
+                    </div>
+                    <h3 class="skill-title">学术能力</h3>
+                    <p class="skill-desc">擅长文献检索与论文写作，掌握科研方法论，能够独立开展学术研究与实证分析。</p>
+                </div>
+                
+                <div class="skill-circle-item">
+                    <div class="skill-circle">
+                        <img src="assets/images/skills/2.jpg" alt="汇报能力">
+                    </div>
+                    <h3 class="skill-title">汇报能力</h3>
+                    <p class="skill-desc">善于梳理逻辑，PPT制作精良，多次代表团队参与正式场合汇报，表达清晰自信。</p>
+                </div>
+                
+                <div class="skill-circle-item">
+                    <div class="skill-circle">
+                        <img src="assets/images/skills/3.jpg" alt="工具能力">
+                    </div>
+                    <h3 class="skill-title">工具能力</h3>
+                    <p class="skill-desc">掌握Office全家桶，熟悉使用deepseek、claude、cursor等工具提升工作效率。</p>
+                </div>
+                
+                <div class="skill-circle-item">
+                    <div class="skill-circle">
+                        <img src="assets/images/skills/4.jpg" alt="设计能力">
+                    </div>
+                    <h3 class="skill-title">设计能力</h3>
+                    <p class="skill-desc">熟练使用PS、Canva等设计工具，对排版布局、配色与视觉呈现有良好感觉。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人能力数据条 -->
+    <div class="ability-data-bar" style="display: flex; justify-content: center; align-items: flex-end; gap: 60px; margin: 0;">
+        <div class="ability-data-item" style="text-align: center;">
+            <span class="ability-data-num" style="font-size: 2.5rem; color: #b22222; font-weight: bold;">1000+</span><br>
+            <span class="ability-data-label" style="font-size: 1.1rem; color: #6c7685;">小红书粉丝</span>
+        </div>
+        <div class="ability-data-item" style="text-align: center;">
+            <span class="ability-data-num" style="font-size: 2.5rem; color: #b22222; font-weight: bold;">&gt;3.8w</span><br>
+            <span class="ability-data-label" style="font-size: 1.1rem; color: #6c7685;">点赞量</span>
+        </div>
+        <div class="ability-data-item" style="text-align: center;">
+            <span class="ability-data-num" style="font-size: 2.5rem; color: #b22222; font-weight: bold;">&gt;40w</span><br>
+            <span class="ability-data-label" style="font-size: 1.1rem; color: #6c7685;">累计浏览量</span>
+        </div>
+        <div class="ability-data-item" style="text-align: center;">
+            <span class="ability-data-num" style="font-size: 2.5rem; color: #b22222; font-weight: bold;">10+</span><br>
+            <span class="ability-data-label" style="font-size: 1.1rem; color: #6c7685;">专业技能掌握</span>
+        </div>
+    </div>
+
+    <!-- 页脚部分 -->
+    <footer class="footer" style="background-color: #172b4d; color: #ffffff;">
+        <div class="container">
+            <div class="footer-content" style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <!-- 网易邮箱 -->
+                <a href="https://hw.mail.163.com/js6/main.jsp?sid=JLFaMlnXGHEeODiCteXXyZrNjaXBYEMh&df=email163#module=options.LinkModule%7C%7B%22subModName%22%3A%22LinkModule%22%7D" class="footer-contact-item" target="_blank" style="color: #ffffff; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #fff; border-radius: 50%; padding: 10px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;">
+                        <img src="assets/images/163mail.png" alt="网易邮箱" style="width: 24px; height: 24px; display: block;">
+                    </span>
+                    <span>邮箱</span>
+                </a>
+                
+                <!-- 微信 -->
+                <div class="footer-contact-item wechat-trigger" style="color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #fff; border-radius: 50%; padding: 10px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;">
+                        <img src="assets/images/wechat-qr-icon.png" alt="微信" style="width: 24px; height: 24px; display: block;">
+                    </span>
+                    <span>微信</span>
+                </div>
+                
+                <!-- 小红书 -->
+                <a href="https://www.xiaohongshu.com/user/profile/6421ca0400000000110222b3?xsec_token=YBcptlhiblP9e-aNY0Had9o0NajskVXjdaGhUr6IBcvcQ%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=6421ca0400000000110222b3&apptime=1748283922&share_id=fa889fa616d94830bc234cc77ba36109&share_channel=copy_link" class="footer-contact-item" target="_blank" style="color: #ffffff; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #fff; border-radius: 50%; padding: 10px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;">
+                        <img src="assets/images/xiaohongshu.png" alt="小红书" style="width: 24px; height: 24px; display: block;">
+                    </span>
+                    <span>小红书</span>
+                </a>
+            </div>
+            <div class="footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7); margin-top: 20px;">
+                <p>&copy; 2024 朱一涵. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 微信二维码弹窗 -->
+    <div id="wechatModal" style="display:none; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: #fff; border-radius: 12px; padding: 32px 32px 16px 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); display: flex; flex-direction: column; align-items: center; position: relative;">
+            <span id="closeWechatModal" style="position: absolute; right: 16px; top: 8px; font-size: 24px; color: #333; cursor: pointer;">&times;</span>
+            <img src="assets/images/wechat-qr.jpg" alt="微信二维码" style="width: 180px; height: 180px; margin-bottom: 12px;">
+            <div style="color: #333; font-size: 16px;">微信扫码添加</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 微信二维码弹窗
+            const wechatTrigger = document.querySelector('.wechat-trigger');
+            const wechatModal = document.getElementById('wechatModal');
+            const closeWechatModal = document.getElementById('closeWechatModal');
+            
+            if(wechatTrigger && wechatModal && closeWechatModal) {
+                wechatTrigger.addEventListener('click', function(e) {
+                    wechatModal.style.display = 'flex';
+                });
+                closeWechatModal.addEventListener('click', function() {
+                    wechatModal.style.display = 'none';
+                });
+                wechatModal.addEventListener('click', function(e) {
+                    if(e.target === wechatModal) {
+                        wechatModal.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- 新闻详情模态框 -->
+    <div id="newsModal" class="news-modal">
+        <div class="news-modal-content">
+            <span class="news-modal-close">&times;</span>
+            <div class="news-modal-body">
+                <!-- 动态内容将通过JavaScript填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 研究详情模态框 -->
+    <div id="researchModal" class="research-modal">
+        <div class="research-modal-content">
+            <span class="research-modal-close">&times;</span>
+            <div class="research-modal-body">
+                <!-- 动态内容将通过JavaScript填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入JavaScript库 -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 自定义脚本 -->
+    <script src="script.js"></script>
+    
+    <!-- 标签页切换函数增强版 -->
+    <script>
+        // 标签页切换函数
+        function showTab(tabId, button) {
+            console.log("切换到标签页: " + tabId + ", 触发按钮: ", button);
+
+            var tabGroup = button.closest('.tab-buttons');
+            if (!tabGroup) {
+                console.error("未找到父级 .tab-buttons");
+                return;
+            }
+
+            tabGroup.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+
+            var contentContainer = tabGroup.nextElementSibling;
+            if (!contentContainer) {
+                console.error("未找到同级 .tab-content");
+                return;
+            }
+
+            contentContainer.querySelectorAll('.tab-pane').forEach(function(pane) {
+                pane.classList.remove('active');
+                pane.style.display = 'none'; 
+            });
+
+            var targetPane = contentContainer.querySelector('#' + tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+                targetPane.style.display = 'block';
+                console.log("已显示目标面板: #" + tabId);
+
+                // 确保实践调研部分的内部元素也正确显示
+                if (tabId === 'research') {
+                    console.log("处理实践调研标签的特殊显示逻辑");
+                    var sections = targetPane.querySelectorAll('.research-section');
+                    sections.forEach(function(section) {
+                        section.style.display = 'block';
+                        var wrapper = section.querySelector('.research-content-wrapper');
+                        if (wrapper) wrapper.style.display = 'flex';
+                    });
+                }
+            } else {
+                console.error("未找到目标面板: #" + tabId + " 在容器中: ", contentContainer);
+            }
+        }
+
+        // 页面加载完成后设置事件监听
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("页面DOM加载完成, 开始初始化...");
+            
+            // 初始化标签页
+            document.querySelectorAll('.tab-btn').forEach(function(button) {
+                button.addEventListener('click', function() { 
+                    var tabId = this.getAttribute('data-tab');
+                    showTab(tabId, this);
+                });
+            });
+            var initialPracticeTabButton = document.querySelector('.practice-tabs .tab-buttons .tab-btn[data-tab="internship"]');
+            if (initialPracticeTabButton) {
+                showTab('internship', initialPracticeTabButton);
+            }
+            var initialCompetitionTabButton = document.querySelector('.competition-tabs .tab-buttons .tab-btn.active');
+            if(initialCompetitionTabButton){
+                var competitionTabId = initialCompetitionTabButton.getAttribute('data-tab');
+                showTab(competitionTabId, initialCompetitionTabButton);
+            }
+
+            // 确保Swiper已加载并初始化轮播
+            if (typeof Swiper === 'undefined') {
+                console.log("Swiper库未直接在HTML中找到, 将尝试从script.js中加载...");
+                // 假设script.js会处理Swiper的加载和initSwipers的定义与调用
+                // 如果script.js中没有处理，需要在这里动态加载Swiper
+                var swiperScript = document.createElement('script');
+                swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js';
+                swiperScript.onload = function() {
+                    console.log("Swiper库动态加载完成。");
+                    if (typeof initSwipers === 'function') {
+                        initSwipers();
+                    } else {
+                        console.error('initSwipers函数未定义。');
+                    }
+                };
+                swiperScript.onerror = function() {
+                    console.error('无法动态加载Swiper库。');
+                };
+                document.head.appendChild(swiperScript);
+            } else {
+                console.log("Swiper库已存在, 直接调用initSwipers。");
+                if (typeof initSwipers === 'function') {
+                    initSwipers(); 
+                } else {
+                    console.error('initSwipers函数未定义，但Swiper对象已存在。');
+                }
+            }
+
+            // 初始化模态框关闭按钮 (这部分逻辑可能也存在于script.js中)
+            // 为确保功能，这里也添加一份，注意检查是否与script.js冲突
+            var newsModal = document.getElementById('newsModal');
+            var newsModalClose = newsModal ? newsModal.querySelector('.news-modal-close') : null;
+            if (newsModal && newsModalClose) {
+                newsModalClose.onclick = function() {
+                    newsModal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; 
+                };
+            } else {
+                console.warn("新闻模态框或其关闭按钮未找到。");
+            }
+
+            var researchModal = document.getElementById('researchModal');
+            var researchModalClose = researchModal ? researchModal.querySelector('.research-modal-close') : null;
+            if (researchModal && researchModalClose) {
+                researchModalClose.onclick = function() {
+                    researchModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                };
+            } else {
+                console.warn("研究模态框或其关闭按钮未找到。");
+            }
+        });
+
+        // (假设initSwipers函数定义在script.js中或接下来定义)
+        // function initSwipers() { ... }
+
+    </script>
+
+    <!-- (移除之前专用的实践调研内容显示脚本) -->
+    <!-- <script>
+        // ... forceShowResearch 或 showResearchTab 函数已移除 ...
+    </script> -->
+
+    <script>
+        // 临时的 initSwipers 函数定义，专门用于近期动态轮播
+        function initSwipers() {
+            console.log("尝试执行临时的 initSwipers 函数来初始化 .news-swiper");
+            if (typeof Swiper !== 'undefined') {
+                try {
+                    new Swiper('.news-swiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                        loop: true,
+                        pagination: {
+                            el: '.news-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.news-button-next',
+                            prevEl: '.news-button-prev',
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 2,
+                            },
+                            992: {
+                                slidesPerView: 3,
+                            }
+                        }
+                    });
+                    console.log(".news-swiper 初始化成功 (临时函数)");
+                } catch (e) {
+                    console.error(".news-swiper 初始化失败 (临时函数):", e);
+                }
+            } else {
+                console.error("Swiper 对象在执行临时 initSwipers 时未定义。");
+            }
+        }
+    </script>
+
+    <script>
+        // 临时的 initSwipers 函数定义
+        function initSwipers() {
+            console.log("尝试执行临时的 initSwipers 函数");
+            if (typeof Swiper !== 'undefined') {
+                // 初始化近期动态轮播 (.news-swiper)
+                try {
+                    new Swiper('.news-swiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                        loop: true,
+                        pagination: {
+                            el: '.news-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.news-button-next',
+                            prevEl: '.news-button-prev',
+                        },
+                        breakpoints: {
+                            768: { slidesPerView: 2 },
+                            992: { slidesPerView: 3 }
+                        }
+                    });
+                    console.log(".news-swiper 初始化成功 (临时函数)");
+                } catch (e) {
+                    console.error(".news-swiper 初始化失败 (临时函数):", e);
+                }
+
+                // 导师推荐部分不再使用轮播，已改为静态并排展示
+                // 删除了之前的导师推荐轮播初始化代码
+
+                // 初始化研究项目轮播
+                new Swiper('.research-swiper', {
+                    loop: true, 
+                    loopedSlides: 10, // INCREASED: To ensure smoother looping with more slides
+                    slidesPerView: 1,
+                    spaceBetween: 15,
+                    grabCursor: true,
+                    pagination: {
+                        el: '.research-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.research-button-next',
+                        prevEl: '.research-button-prev',
+                    },
+                    breakpoints: {
+                        576: {
+                            slidesPerView: 2,
+                            spaceBetween: 15
+                        },
+                        768: {
+                            slidesPerView: 3,
+                            spaceBetween: 20
+                        },
+                        1200: {
+                            slidesPerView: 4,
+                            spaceBetween: 20
+                        }
+                    }
+                });
+
+            } else {
+                console.error("Swiper 对象在执行临时 initSwipers 时未定义。");
+            }
+        }
+    </script>
+
+    <script>
+        // 为样式表添加多图展示的样式
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .news-gallery-container {
+                    margin: 20px 0;
+                    width: 100%;
+                }
+                .news-main-image {
+                    width: 100% !important;
+                    height: 350px !important;
+                    object-fit: cover !important;
+                    object-position: center !important;
+                    margin: 0 auto 15px !important;
+                    display: block !important;
+                    border-radius: 4px !important;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+                }
+                .news-thumbnails {
+                    display: flex !important;
+                    flex-wrap: wrap !important;
+                    gap: 10px !important;
+                    justify-content: center !important;
+                    margin-bottom: 20px !important;
+                }
+                .news-thumbnail {
+                    width: 80px !important;
+                    height: 60px !important;
+                    object-fit: cover !important;
+                    cursor: pointer !important;
+                    border-radius: 3px !important;
+                    border: 2px solid transparent !important;
+                    transition: all 0.2s ease !important;
+                }
+                .news-thumbnail.active {
+                    border-color: #0052cc !important;
+                    box-shadow: 0 0 5px rgba(0,82,204,0.5) !important;
+                }
+                .news-thumbnail:hover {
+                    transform: scale(1.05) !important;
+                }
+            </style>
+        `);
+
+        // 示例新闻数据 (您需要根据实际情况修改这里的图片路径和详细内容)
+        const newsData = [
+            {
+                id: 1,
+                title: '全国公共管理案例大赛',
+                date: '2025.05.18',
+                imageSrc: 'assets/images/news1.jpg',
+                images: [
+                    'assets/images/news1.jpg',
+                    'assets/images/news1-2.jpg',
+                    'assets/images/news1-3.jpg',
+                    'assets/images/news1-4.jpg',
+                    'assets/images/news1-5.jpg'
+                ],
+                excerpt: '赴京参加第九届"求是杯"赛事，项目团队获全国第二，个人获年度唯一"最具价值队员奖"，并作为参赛学生代表发言。',
+                fullContent: '<h2>第九届"求是杯"全国公共管理案例大赛</h2><p><small>日期: 2025年5月18日</small></p><div class="news-gallery-container"><img src="assets/images/news1.jpg" alt="全国公共管理案例大赛" class="news-main-image" id="news-main-image-1"><div class="news-thumbnails" id="news-thumbnails-1"></div></div><p>2025年5月18日，朱一涵赴京参加第九届"求是杯"赛事。"求是杯"全国公共管理案例分析大赛由教育部高等学校公共管理类专业教学指导委员会与中国人民大学联合主办，是公共管理领域最具影响力的全国性赛事之一。</p><p>在本次比赛中，朱一涵所在的项目团队以复赛小组第二的成绩成功晋级决赛。在决赛中，凭借较好的案例分析能力和创新性的解决方案，最终获得了决赛二等奖（全国第二）的成绩。</p><p>朱一涵获得了赛事年度唯一的"最具价值队员奖"。闭幕式上，朱一涵作为参赛学生代表发表了感言，分享了参赛的体验和对于公管领域实践的体悟。此次比赛经历不仅丰富了朱一涵的实践经验，也为其未来在公共管理领域的探索和研究奠定了良好基础。</p>'
+            },
+            {
+                id: 2,
+                title: 'RCCSE准核心、AMI期刊论文',
+                date: '2025.05.14',
+                imageSrc: 'assets/images/news2.jpg',
+                images: [
+                    'assets/images/news2.jpg'
+                ],
+                excerpt: '主笔实证论文《计划行为理论下的土地流转意愿研究——来自广东的经验证据》在RCCSE准核心、AMI期刊《南方农村》上发表。',
+                fullContent: '<h2>RCCSE准核心、AMI期刊发表论文</h2><p><small>日期: 2025年5月14日</small></p><div class="news-gallery-container"><img src="assets/images/news2.jpg" alt="RCCSE准核心、AMI期刊论文" class="news-main-image" id="news-main-image-2"><div class="news-thumbnails" id="news-thumbnails-2"></div></div><p>2025年5月14日，朱一涵主笔（第二作者，导师一作）的实证论文《计划行为理论下的土地流转意愿研究——来自广东的经验证据》在RCCSE准核心、AMI期刊《南方农村》正式发表。</p><p>基于粤西、粤北等地的36个自然村500多位稻农的调研数据，朱一涵借鉴Ajzen和Fishbein（1991）提出的计划行为理论设计问卷量表，对农户土地流转意愿的变化进行了系统观测。研究中通过构建结构方程模型进行检验分析，探索出影响农户流转意愿变化的各因素强度，并提出了相应的政策建议。</p><p>该研究成果获得了广东省科创专项资金的立项支持。</p>'
+            },
+            {
+                id: 3,
+                title: '中国人民大学学术论坛',
+                date: '2024.11.09',
+                imageSrc: 'assets/images/news3.jpg',
+                images: [
+                    'assets/images/news3.jpg',
+                    'assets/images/news3-2.jpg',
+                    'assets/images/news3-3.jpg',
+                    'assets/images/news3-4.jpg',
+                    'assets/images/news3-5.jpg'
+                ],
+                excerpt: '第一作者身份主笔案例论文入选中国人民大学三农论坛，在中共义务市委党校作论文汇报，获评为二等奖。',
+                fullContent: '<h2>中国人民大学"卓越三农·新秀"学术论坛</h2><p><small>日期: 2024年11月9日</small></p><div class="news-gallery-container"><img src="assets/images/news3.jpg" alt="中国人民大学学术论坛" class="news-main-image" id="news-main-image-3"><div class="news-thumbnails" id="news-thumbnails-3"></div></div><p>2024年11月9日，朱一涵以第一作者身份完成《"炮弹香芋"何以打通农技推广的"最后一公里"——以科技小院为枢纽的多元主体协同模式初探》入选中国人民大学"卓越三农·新秀"学术论坛，赴中共义乌党校作宣讲汇报。</p><p>此次论坛由教育部高等学校农业经济管理专业教学指导委员会、中国人民大学农业与农村发展学院主办，是农业经济管理领域内的重要学术交流平台，吸引了来自全国多所高校的优秀学生参与。</p><p>在论坛上，朱一涵详细介绍了科技小院如何作为创新的农技推广模式，有效解决农业技术推广"最后一公里"问题。通过对"炮弹香芋"的案例分析，展示了多元主体协同参与农技推广的路径和机制，与会专家学者现场进行了点评并提出建议。</p>'
+            },
+            {
+                id: 4,
+                title: '第五届南京农业大学卜凯本科生论坛',
+                date: '2024.11.16',
+                imageSrc: 'assets/images/news4.jpg',
+                images: [
+                    'assets/images/news4.jpg',
+                    'assets/images/news4-2.jpg',
+                    'assets/images/news4-3.jpg',
+                    'assets/images/news4-4.jpg',
+                    'assets/images/news4-5.jpg'
+                ],
+                excerpt: '主笔论文入选第五届南京农业大学经济管理学院卜凯本科生论坛，并作论文汇报，最终收录为三等奖会议论文。',
+                fullContent: '<h2>第五届南京农业大学卜凯本科生论坛</h2><p><small>日期: 2024年11月16日</small></p><div class="news-gallery-container"><img src="assets/images/news4.jpg" alt="第五届南京农业大学卜凯本科生论坛" class="news-main-image" id="news-main-image-4"><div class="news-thumbnails" id="news-thumbnails-4"></div></div><p>2024年11月16日，朱一涵主笔的论文《计划行为理论下的土地流转意愿研究——来自广东省的经验证据》入选第五届南京农业大学卜凯本科生论坛，并获得三等奖。</p><p>卜凯本科生论坛是为纪念中国农业经济学奠基人卜凯先生而设立的学术交流平台，由南京农业大学主办，旨在促进全国农业经济管理专业本科生的学术交流与创新。</p><p>在论坛上，朱一涵详细介绍了影响农民流转土地意愿的因素，基于结构方程模型探讨了各因素的影响强度，并根据分析结果提出了增进农民流转意愿的政策建议。</p>'
+            }
+        ];
+
+        function showNewsModalById(newsId) {
+            const newsItem = newsData.find(item => item.id === newsId);
+            const modal = document.getElementById('newsModal');
+            const modalBody = modal ? modal.querySelector('.news-modal-body') : null;
+
+            if (newsItem && modal && modalBody) {
+                // 渲染内容
+                modalBody.innerHTML = newsItem.fullContent || newsItem.excerpt;
+                
+                // 如果有多张图片，生成缩略图
+                if (newsItem.images && newsItem.images.length > 1) {
+                    const thumbnailsContainer = modalBody.querySelector(`#news-thumbnails-${newsId}`);
+                    const mainImage = modalBody.querySelector(`#news-main-image-${newsId}`);
+                    
+                    if (thumbnailsContainer && mainImage) {
+                        // 创建缩略图
+                        newsItem.images.forEach((imgSrc, index) => {
+                            const thumbnail = document.createElement('img');
+                            thumbnail.src = imgSrc;
+                            thumbnail.alt = `${newsItem.title} - 图片 ${index + 1}`;
+                            thumbnail.className = 'news-thumbnail' + (index === 0 ? ' active' : '');
+                            thumbnail.onclick = function() {
+                                // 点击缩略图时更新大图
+                                mainImage.src = imgSrc;
+                                // 更新缩略图激活状态
+                                thumbnailsContainer.querySelectorAll('.news-thumbnail').forEach(thumb => {
+                                    thumb.classList.remove('active');
+                                });
+                                this.classList.add('active');
+                            };
+                            thumbnailsContainer.appendChild(thumbnail);
+                        });
+                    }
+                }
+                
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error("未找到新闻条目或模态框元素。 News ID:", newsId, "News Item:", newsItem, "Modal:", modal, "Modal Body:", modalBody);
+            }
+        }
+    </script>
+
+</body>
+</html> 
